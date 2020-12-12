@@ -1,9 +1,10 @@
 import React, {  useEffect, useState } from 'react';
 import Axios from "axios";
+import styled from "styled-components";
 
 export default function Info(props) {
     const {characterId, close } = props
-    const {info, setInfo} = useState([])
+    const [info, setInfo] = useState([])
 
     useEffect(() => {
         Axios
@@ -12,6 +13,7 @@ export default function Info(props) {
             console.log(res.data)
             setInfo(res.data)
         })
+        
         .catch((err)=>{
             console.log(err)
         })
@@ -19,11 +21,10 @@ export default function Info(props) {
 
     return (
         <div className='container'>
-          <h2>Info:</h2>
           {
             info &&
             <>
-              <p>{info.name}</p>
+              <StyledName>{info.name}'s Picture</StyledName>
             <img src={info.image} alt='img of character' />
             </>
           }
@@ -32,3 +33,6 @@ export default function Info(props) {
       )
 }
 
+const StyledName = styled.p`
+color: whitesmoke;
+`

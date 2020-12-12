@@ -3,6 +3,7 @@ import Axios from "axios";
 import './App.css';
 import Character from './Character'
 import Info from './Info'
+import styled from "styled-components";
 
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
@@ -41,7 +42,7 @@ const closeInfo = () => {
 
   return (
     <div className="App">
-      <h1 className="Header">characters</h1>
+      <StyledHeader className="Header">Rick and Morty Character List</StyledHeader>
      {characters.map((ch) => {
        return <Character  key={ch.id} info={ch} action={openInfo}/>
      })}
@@ -52,5 +53,8 @@ const closeInfo = () => {
     </div>
   );
 }
-
+ const StyledHeader = styled.h1`
+ color:whitesmoke;
+ text-decoration: underline;
+ `
 export default App;
