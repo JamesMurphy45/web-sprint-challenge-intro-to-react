@@ -1,22 +1,22 @@
 import React, {  useEffect,useState } from 'react';
 import Axios from "axios";
 import './App.css';
-import Character from './character';
+import Character from './Character'
 import Info from './Info'
 
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
 const[characters, setCharacters] = useState([])
-const[currentCharacterId, setCharacterId] = useState('1')
+const[currentCharacterId, setCurrentCharacterId] = useState(null)
 // const[characterOrigin, setCharacterOrigin] = useState(null)
 // const[characterSpecies, setCharacterSpecies] = useState(null)
 const openInfo = (id) => {
-  setCharacterId(id);
+  setCurrentCharacterId(id);
 };
 
 const closeInfo = () => {
-  setCharacterId(null);
+  setCurrentCharacterId(null);
 };
 
   // Fetch characters from the API in an effect hook. Remember, anytime you have a 
@@ -24,8 +24,9 @@ const closeInfo = () => {
     Axios
       .get(`https://rickandmortyapi.com/api/character`)
       .then ((res) => {
-        console.log(res.data)
-        setCharacters(res.data)
+        console.log(res.data.results)
+        setCharacters(res.data.results)
+        
       })
       .catch((err)=>{
         console.log(err)
@@ -42,7 +43,7 @@ const closeInfo = () => {
     <div className="App">
       <h1 className="Header">characters</h1>
      {characters.map((ch) => {
-       return <Character key={ch.id} info={ch} action={openInfo}/>
+       return <Character  key={ch.id} info={ch} action={openInfo}/>
      })}
      {currentCharacterId && (
        <Info characterId={currentCharacterId} close={closeInfo} />
